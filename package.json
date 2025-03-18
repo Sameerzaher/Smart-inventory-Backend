@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node inventory_backend.js",
+    "dev": "nodemon inventory_backend.js"
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,4 +30,6 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.6"
   }
+
+
 }

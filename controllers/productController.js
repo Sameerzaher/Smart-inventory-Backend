@@ -9,22 +9,31 @@ exports.getProducts = async (req, res) => {
     }
 };
 
-exports.addProduct = async (req, res) => {
+exports.createProduct = async (req, res) => {
     try {
-        const { name, sku, stock_quantity, selling_price } = req.body;
-        const product = await Product.create({ name, sku, stock_quantity, selling_price });
+        const product = await Product.create(req.body);
         res.status(201).json(product);
     } catch (error) {
-        res.status(400).json({ message: 'Error adding product', error });
+        res.status(400).json({ message: 'Error creating product', error });
     }
 };
-exports.getProducts = async (req, res) => {
+
+exports.updateProduct = async (req, res) => {
     try {
-        const products = await Product.findAll();
-        console.log("✅ Products Fetched from DB:", products);  // Debugging Line
-        res.json(products);
+        const { id } = req.params;
+        await Product.update(req.body, { where: { id } });
+        res.json({ message: 'Product updated successfully' });
     } catch (error) {
-        console.error("❌ Error fetching products:", error);
-        res.status(500).json({ message: 'Error fetching products', error });
+        res.status(400).json({ message: 'Error updating product', error });
+    }
+};
+
+exports.deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await Product.destroy({ where: { id } });
+        res.json({ message: 'Product deleted successfully' });
+    } catch (error) {
+        res.status(400).json({ message: 'Error deleting product', error });
     }
 };

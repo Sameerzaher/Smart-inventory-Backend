@@ -112,34 +112,20 @@
 // });
 
 
-
-
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { sequelize } = require('./config/database');
-const authRoutes = require('./routes/authRoutes');
-const productRoutes = require('./routes/productRoutes');
-const saleRoutes = require('./routes/saleRoutes');
-const verifyToken = require('./middleware/authMiddleware');
+const apiRoutes = require('./routes/api');
 
-// Initialize Express App
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Routes
-app.use('/auth', authRoutes);
-app.use('/products', verifyToken, productRoutes);
-app.use('/sales', verifyToken, saleRoutes);
+app.use('/api', apiRoutes);
 
-// Define Root Route
-app.get('/', (req, res) => {
-    res.send("Inventory Management API is running!");
-});
-
-// Sync Database & Start Server
 sequelize.sync().then(() => {
-    app.listen(process.env.PORT || 5000, () => console.log(`Server running on port ${process.env.PORT || 5000}`));
-});
+    console.log('✅ Database connected successfully.');
+    app.listen(5000, () => console.log('🚀 Server running on port 5000'));
+}).catch(err => console.error('❌ Database connection error:', err));

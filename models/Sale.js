@@ -10,6 +10,7 @@ const Sale = sequelize.define('Sale', {
 });
 
 module.exports = Sale;
+
 // Compare this snippet from routes/auth.js:
 // const express = require('express'); 
 // const jwt = require('jsonwebtoken');

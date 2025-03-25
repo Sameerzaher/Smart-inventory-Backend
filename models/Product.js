@@ -1,18 +1,31 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/database');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-const Product = sequelize.define('Product', {
-    id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-    name: { type: DataTypes.STRING, allowNull: false },
-    sku: { type: DataTypes.STRING, unique: true, allowNull: false },
-    stock_quantity: { type: DataTypes.INTEGER, defaultValue: 0 },
-    selling_price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
-    createdAt: { type: DataTypes.DATE, field: 'created_at' },  // Ensure correct column name
-    updatedAt: { type: DataTypes.DATE, field: 'updated_at' }   // Ensure correct column name
-}, {
-    tableName: 'products',
-    timestamps: true,
-    underscored: true
+const Product = sequelize.define("Product", {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4, // Sequelize will generate UUIDs automatically
+    primaryKey: true
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sku: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  stock_quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  selling_price: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
 });
 
 module.exports = Product;
+    

@@ -1,5 +1,14 @@
 const Product = require('../models/Product');
+const Inventory = require("../models/Inventory");
 
+exports.getInventory = async (req, res) => {
+    try {
+      const inventory = await Inventory.findAll();
+      res.json(inventory);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching inventory data", error });
+    }
+  };
 exports.addStock = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
